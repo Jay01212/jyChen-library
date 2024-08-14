@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>User Information Form / Credentials</h1>
+    <div class="form">
+    <h1>User Information Form / Credentials</h1>
         <form>
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username"><br>
