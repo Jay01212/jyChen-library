@@ -53,8 +53,15 @@
                     <div class="row mb-3">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="isAustralian" v-model="formData.isAustralian">
-                                <label class="form-check-label" for="isAustralian">Australian Resident?</label>
+                                <input type="radio" class="form-check" id="isAustralian" name="residentStatus" 
+                                @blur="() => validateisAustralian(true)"
+                                @input="() => validateisAustralian(false)"
+                                v-model="formData.isAustralian" value="true">
+                                <label for="isAustralian">Australian Resident</label>
+                                <input type="radio" class="form-check" id="isNotAustralian" name="residentStatus" 
+                                v-model="formData.isAustralian" value="false">
+                                <label for="isNotAustralian">Not Australian Resident</label>
+                                <div v-if="errors.isAustralian" class="text-danger">{{ errors.isAustralian }}</div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
@@ -133,9 +140,10 @@ const submittedCards = ref([]);
 const submitForm = () => {
     validateName(true);
     validatePassword(true);
+    validateisAustralian(true);
     validateGender(true);
     validateReason(true);
-    if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason) {
+    if (!errors.value.username && !errors.value.password && !errors.value.isAustralian && !errors.value.gender && !errors.value.reason) {
         submittedCards.value.push({ ...formData.value });
         clearForm();
     }
@@ -188,6 +196,14 @@ const validatePassword = (blur) => {
         errors.value.password = null;
     }
 };
+
+const validateisAustralian = (blur) => {
+    if(!formData.value.isAustralian){
+        if (blur) errors.value.isAustralian = "This must be selected.";
+    } else {
+        errors.value.isAustralian = null;
+    } 
+}
 
 const validateGender = (blur) => {
     if(!formData.value.gender){
