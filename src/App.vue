@@ -17,7 +17,16 @@ import Form from './components/Form.vue';
     <TheWelcome />
   </main> -->
 
-  <Form />
+  <!-- <Form /> -->
+   <div class="main-container">
+      <header>
+        <BHeader />
+      </header>
+
+      <main class="main-box">
+        <router-view></router-view>
+      </main>
+   </div>
 </template>
 
 <style scoped>
